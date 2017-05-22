@@ -21,15 +21,16 @@ public class Login extends JDialog {
 	private String ime;
 	public String privremenoIme;
 	public static String odgovor;
+	private JLabel lbl;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			Login dialog = new Login();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
+			// Login dialog = new Login();
+			// dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			// dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,9 +53,10 @@ public class Login extends JDialog {
 		}
 		{
 			JLabel lblNewLabel = new JLabel("Unesite ime");
-			lblNewLabel.setBounds(182, 33, 55, 14);
+			lblNewLabel.setBounds(167, 33, 70, 14);
 			contentPanel.add(lblNewLabel);
 		}
+		contentPanel.add(getLbl());
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -66,15 +68,21 @@ public class Login extends JDialog {
 						try {
 							privremenoIme = textIme.getText();
 							Klijent.izlazniTokKaServeru.println("Proveri ime: " + privremenoIme);
-							System.out.println("Stigao dovde");
-							
-							// odgovor = Klijent.ulazniTokOdServera.readLine();
-							System.out.println("Odgovor je : " + odgovor);
+							while (odgovor == null) {
+								System.out.println("Odgovor i dalje nije promenjen......");
+							}
+								System.out.println("Odgovor je : " + odgovor);
 							System.out.println("Primio je odgovor od servera");
-							if (odgovor == null) {
+							if (odgovor.startsWith("Opet")) {
+								textIme.setText(null);
+								lbl.setText("Ime vec postoji, izaberite novo: ");
+							}
+							if (odgovor.startsWith("Ime")) {
+								System.out.println(odgovor);
+								lbl.setText(null);
 								dispose();
 							} else {
-								JOptionPane.showMessageDialog(new JFrame(), "Ime vec postoji, izaberite novo: ");
+								lbl.setText("Ime vec postoji, izaberite novo: ");
 							}
 						} catch (Exception greskaKodKlikaNaOK) {
 							System.out.println("Puko kod OK tastera");
@@ -113,5 +121,11 @@ public class Login extends JDialog {
 	public void setPrivremenoIme(String ime) {
 		this.ime = ime;
 	}
-
+	private JLabel getLbl() {
+		if (lbl == null) {
+			lbl = new JLabel("");
+			lbl.setBounds(182, 89, 86, 14);
+		}
+		return lbl;
+	}
 }

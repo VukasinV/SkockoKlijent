@@ -18,6 +18,7 @@ public class Klijent extends Window implements Runnable {
 	static PrintStream izlazniTokKaServeru = null;
 	static BufferedReader ulazniTokOdServera = null;
 	static BufferedReader ulazKonzola = null;
+	public static String temp;
 
 	static boolean kraj = false;
 
@@ -35,7 +36,7 @@ public class Klijent extends Window implements Runnable {
 			Window window = new Window();
 			Login login = new Login();
 			login.setVisible(true);
-			//window.setVisible(true);
+			window.setVisible(true);
 			while (!kraj) {
 				//izlazniTokKaServeru.println(ulazKonzola.readLine());
 			}
@@ -57,7 +58,8 @@ public class Klijent extends Window implements Runnable {
 					return;
 				}
 				
-				if (linijaOdServera.startsWith("Opet") || linijaOdServera.startsWith("Ime")) {
+				if (linijaOdServera.startsWith("Ime")||linijaOdServera.startsWith("Opet")) {
+					System.out.println("Uvatio je u promenjivu");
 					Login.odgovor = linijaOdServera;
 				}
 			}
