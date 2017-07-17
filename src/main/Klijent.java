@@ -19,7 +19,7 @@ public class Klijent extends Window implements Runnable {
 	static BufferedReader ulazniTokOdServera = null;
 	static BufferedReader ulazKonzola = null;
 	public static String temp;
-
+	public static boolean loginZatvoren = false;
 	static boolean kraj = false;
 	
 	// Ovo je poslednji kod
@@ -38,7 +38,14 @@ public class Klijent extends Window implements Runnable {
 			Window window = new Window();
 			Login login = new Login();
 			login.setVisible(true);
-			window.setVisible(true);
+			while (!loginZatvoren) {
+				System.out.println("");
+				if (loginZatvoren) {
+					window.setVisible(true);
+					System.out.println("Promenjen status");
+					break;
+				}
+			}
 			while (!kraj) {
 				//izlazniTokKaServeru.println(ulazKonzola.readLine());
 			}

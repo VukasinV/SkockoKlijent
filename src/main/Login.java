@@ -80,6 +80,7 @@ public class Login extends JDialog {
 							if (odgovor.startsWith("Ime")) {
 								System.out.println(odgovor);
 								lbl.setText(null);
+								Klijent.loginZatvoren = true;
 								dispose();
 							} else {
 								lbl.setText("Ime vec postoji, izaberite novo: ");
