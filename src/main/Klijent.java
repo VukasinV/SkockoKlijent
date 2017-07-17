@@ -37,11 +37,12 @@ public class Klijent extends Window implements Runnable {
 			new Thread(new Klijent()).start();
 			Window window = new Window();
 			Login login = new Login();
+			ListaOnlineIgraca listaIgraca = new ListaOnlineIgraca();
 			login.setVisible(true);
 			while (!loginZatvoren) {
 				System.out.println("");
 				if (loginZatvoren) {
-					window.setVisible(true);
+					listaIgraca.setVisible(true);
 					System.out.println("Promenjen status");
 					break;
 				}
@@ -70,6 +71,9 @@ public class Klijent extends Window implements Runnable {
 				if (linijaOdServera.startsWith("Ime")||linijaOdServera.startsWith("Opet")) {
 					System.out.println("Uvatio je u promenjivu");
 					Login.odgovor = linijaOdServera;
+				}
+				if (linijaOdServera.startsWith("Lista") || linijaOdServera.startsWith("PLista")) {
+					ListaOnlineIgraca.odgovor = linijaOdServera;
 				}
 			}
 		} catch (IOException e) {
