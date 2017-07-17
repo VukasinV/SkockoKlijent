@@ -21,6 +21,8 @@ public class Klijent extends Window implements Runnable {
 	public static String temp;
 
 	static boolean kraj = false;
+	
+	// Ovo je poslednji kod
 
 	public static void main(String[] args) {
 		try {
