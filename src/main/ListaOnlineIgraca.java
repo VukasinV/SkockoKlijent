@@ -86,6 +86,7 @@ public class ListaOnlineIgraca extends JFrame {
 						for (int i = 1; i < zaListu.length; i++) {
 							listmodel.addElement(zaListu[i]);
 						}
+						
 					}
 				}
 			});
