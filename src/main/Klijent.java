@@ -1,9 +1,6 @@
 
 package main;
 
-import java.awt.Button;
-import java.awt.Label;
-import java.awt.TextField;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,7 +8,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 public class Klijent extends Window implements Runnable {
 	static Socket soketZaKomunikaciju = null;
@@ -21,7 +18,7 @@ public class Klijent extends Window implements Runnable {
 	public static String temp;
 	public static boolean loginZatvoren = false;
 	static boolean kraj = false;
-	
+
 	// Ovo je poslednji kod
 
 	public static void main(String[] args) {
@@ -48,7 +45,7 @@ public class Klijent extends Window implements Runnable {
 				}
 			}
 			while (!kraj) {
-				//izlazniTokKaServeru.println(ulazKonzola.readLine());
+				// izlazniTokKaServeru.println(ulazKonzola.readLine());
 			}
 			soketZaKomunikaciju.close();
 		} catch (UnknownHostException e) {
@@ -67,15 +64,27 @@ public class Klijent extends Window implements Runnable {
 					kraj = true;
 					return;
 				}
-				
-				if (linijaOdServera.startsWith("Ime")||linijaOdServera.startsWith("Opet")) {
+
+				if (linijaOdServera.startsWith("Ime") || linijaOdServera.startsWith("Opet")) {
 					System.out.println("Uvatio je u promenjivu");
 					Login.odgovor = linijaOdServera;
 				}
 				if (linijaOdServera.startsWith("Lista") || linijaOdServera.startsWith("PLista")) {
 					ListaOnlineIgraca.odgovor = linijaOdServera;
 				}
-				
+				if (linijaOdServera.startsWith("Izabrao ")) {
+					ListaOnlineIgraca.odgovor = linijaOdServera;
+				}
+				if (linijaOdServera.startsWith("Izazvao Vas je")) {
+					String pom = linijaOdServera.split("@")[1];
+					int opcion = JOptionPane.showConfirmDialog(null, "Izazvao vase je igrac: " + pom, "Obavestenje!", JOptionPane.YES_NO_OPTION);
+
+					if (opcion == 0) { //The ISSUE is here
+					   System.out.print("si");
+					} else {
+					   System.out.print("no");
+					}
+				}
 			}
 		} catch (IOException e) {
 			System.err.println("IOException " + e);
