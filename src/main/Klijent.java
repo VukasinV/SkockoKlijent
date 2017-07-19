@@ -1,6 +1,7 @@
 
 package main;
 
+import java.awt.Event;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,8 +19,7 @@ public class Klijent extends Window implements Runnable {
 	public static String temp;
 	public static boolean loginZatvoren = false;
 	static boolean kraj = false;
-
-	// Ovo je poslednji kod
+	public static boolean listaZatvorena = false;
 
 	public static void main(String[] args) {
 		try {
@@ -32,7 +32,7 @@ public class Klijent extends Window implements Runnable {
 			izlazniTokKaServeru = new PrintStream(soketZaKomunikaciju.getOutputStream());
 			ulazniTokOdServera = new BufferedReader(new InputStreamReader(soketZaKomunikaciju.getInputStream()));
 			new Thread(new Klijent()).start();
-			Window window = new Window();
+			final Window window = new Window();
 			Login login = new Login();
 			ListaOnlineIgraca listaIgraca = new ListaOnlineIgraca();
 			login.setVisible(true);
@@ -44,6 +44,15 @@ public class Klijent extends Window implements Runnable {
 					break;
 				}
 			}
+
+			while (!listaZatvorena) {
+				System.out.println("");
+				if (listaZatvorena) {
+					listaIgraca.setVisible(false);
+					listaIgraca.dispose();
+				}
+			}
+
 			while (!kraj) {
 				// izlazniTokKaServeru.println(ulazKonzola.readLine());
 			}
@@ -77,13 +86,24 @@ public class Klijent extends Window implements Runnable {
 				}
 				if (linijaOdServera.startsWith("Izazvao Vas je")) {
 					String pom = linijaOdServera.split("@")[1];
-					int opcion = JOptionPane.showConfirmDialog(null, "Izazvao vase je igrac: " + pom, "Obavestenje!", JOptionPane.YES_NO_OPTION);
+					int opcion = JOptionPane.showConfirmDialog(null, "Izazvao vase je igrac: " + pom, "Obavestenje!",
+							JOptionPane.YES_NO_OPTION);
 
-					if (opcion == 0) { //The ISSUE is here
-					   System.out.print("si");
+					if (opcion == 0) { // The ISSUE is here
+						Klijent.listaZatvorena = true;
+
 					} else {
 						System.out.println("Izabrali ste NE");
-						
+
+					}
+				}
+				if (listaZatvorena) {
+					Window window = new Window();
+					window.setVisible(true);
+					while (linijaOdServera != null && linijaOdServera.startsWith("Kombinacija")) {
+						System.out.println("Usao u while ?");
+						window.setRez1(Integer.parseInt(linijaOdServera.split(",")[1]), Integer.parseInt(linijaOdServera.split(",")[2]));
+						break;
 					}
 				}
 			}

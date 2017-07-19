@@ -3,6 +3,7 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -12,6 +13,7 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.Icon;
@@ -666,6 +668,9 @@ public class Window extends JFrame {
 						b = dodeliKontrolniBr(lbl2);
 						c = dodeliKontrolniBr(lbl3);
 						d = dodeliKontrolniBr(lbl4);
+						System.out.println("RADI?");
+						Klijent.izlazniTokKaServeru.println("Kombinacija,"+ a + "," +  b + "," + c + "," + d);
+//					
 //						int brPogodjenihNaMestu = game.vratiBrojPogodjenih(a, b, c, d, true);
 //						int brPogodjenih = game.vratiBrojPogodjenih(a, b, c, d, false);
 //						daLiSiPobedio(brPogodjenihNaMestu);
@@ -1201,4 +1206,10 @@ public class Window extends JFrame {
 			return "GRESKA";
 		}
 	}
+	
+	public void setRez1 (int prviBr, int drugiBr) {
+		System.out.println("Pozvana metoda");
+		rez1.setText("" + prviBr + drugiBr);
+	}
 }
+
