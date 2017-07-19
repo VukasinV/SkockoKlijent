@@ -74,14 +74,14 @@ public class ListaOnlineIgraca extends JFrame {
 					}
 					String pom = list.getSelectedValue().toString();
 					JOptionPane.showMessageDialog(new JFrame(),
-							  pom+" <3");
+							  "Izabrali ste da Vam protivnik bude "+pom);
 					
 					System.out.println(pom);
 					
 					Klijent.izlazniTokKaServeru.println("Zelim da igram sa:" + pom);				
 				}
 			});
-			list.setBounds(197, 11, 198, 218);
+			list.setBounds(197, 11, 198, 102);
 			list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 			list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 			list.setVisibleRowCount(-1);

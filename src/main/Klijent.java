@@ -82,7 +82,8 @@ public class Klijent extends Window implements Runnable {
 					if (opcion == 0) { //The ISSUE is here
 					   System.out.print("si");
 					} else {
-					   System.out.print("no");
+						System.out.println("Izabrali ste NE");
+						
 					}
 				}
 			}
